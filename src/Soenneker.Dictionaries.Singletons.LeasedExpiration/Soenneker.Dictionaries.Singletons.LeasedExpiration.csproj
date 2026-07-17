@@ -43,6 +43,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Soenneker.Dictionaries.SingletonKeys.LeasedExpiration" Version="4.0.6" />
+      <PackageReference Include="Soenneker.Dictionaries.SingletonKeys.LeasedExpiration" Version="4.0.8" />
     </ItemGroup>
 </Project>
