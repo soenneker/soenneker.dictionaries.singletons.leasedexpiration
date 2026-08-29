@@ -6,6 +6,7 @@ using Soenneker.Dictionaries.Singletons.LeasedExpiration.Abstract;
 
 namespace Soenneker.Dictionaries.Singletons.LeasedExpiration;
 
+/// <inheritdoc cref="ILeasedExpirationSingletonDictionary{TValue}"/>
 public sealed class LeasedExpirationSingletonDictionary<TValue> : LeasedExpirationSingletonKeyDictionary<string, TValue>,
     ILeasedExpirationSingletonDictionary<TValue>
 {
