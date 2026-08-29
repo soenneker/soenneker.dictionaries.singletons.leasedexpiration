@@ -6,10 +6,6 @@ using Soenneker.Dictionaries.Singletons.LeasedExpiration.Abstract;
 
 namespace Soenneker.Dictionaries.Singletons.LeasedExpiration;
 
-/// <summary>
-/// A string-keyed singleton cache that returns leases and disposes values only after they are idle and no leases are active.
-/// </summary>
-/// <typeparam name="TValue">The leased value type.</typeparam>
 public sealed class LeasedExpirationSingletonDictionary<TValue> : LeasedExpirationSingletonKeyDictionary<string, TValue>,
     ILeasedExpirationSingletonDictionary<TValue>
 {
@@ -50,6 +46,10 @@ public sealed class LeasedExpirationSingletonDictionary<TValue> : LeasedExpirati
     /// <summary>
     /// Fluent typed wrapper around <see cref="LeasedExpirationSingletonKeyDictionary{TKey,TValue}.Initialize{TState}"/>.
     /// </summary>
+    /// <typeparam name="TState">Type of state passed to the callback.</typeparam>
+    /// <param name="state">State value used by the variant.</param>
+    /// <param name="factory">Factory used to create a value when one is needed.</param>
+    /// <returns>The resulting leased Expiration Singleton Dictionary.</returns>
     public new LeasedExpirationSingletonDictionary<TValue> Initialize<TState>(TState state,
         Func<TState, string, CancellationToken, ValueTask<TValue>> factory) where TState : notnull
     {
