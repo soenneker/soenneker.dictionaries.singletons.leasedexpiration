@@ -16,4 +16,7 @@
         <ProjectReference Include="..\..\src\Soenneker.Dictionaries.Singletons.LeasedExpiration\Soenneker.Dictionaries.Singletons.LeasedExpiration.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <PackageReference Include="AwesomeAssertions" Version="9.6.0" />
+    </ItemGroup>
 </Project>
