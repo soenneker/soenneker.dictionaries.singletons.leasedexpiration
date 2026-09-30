@@ -10,7 +10,7 @@ namespace Soenneker.Dictionaries.Singletons.LeasedExpiration.Tests;
 public sealed class LeasedExpirationSingletonDictionaryTests : UnitTest
 {
     [Test]
-    public async Task GetLease_reuses_value_before_idle_expiration()
+    public async ValueTask GetLease_reuses_value_before_idle_expiration()
     {
         var calls = 0;
 
@@ -40,7 +40,7 @@ public sealed class LeasedExpirationSingletonDictionaryTests : UnitTest
     }
 
     [Test]
-    public async Task Expiration_waits_for_active_lease()
+    public async ValueTask Expiration_waits_for_active_lease()
     {
         var disposed = 0;
 
