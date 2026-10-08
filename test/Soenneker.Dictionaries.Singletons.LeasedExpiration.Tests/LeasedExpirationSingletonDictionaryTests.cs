@@ -10,7 +10,7 @@ namespace Soenneker.Dictionaries.Singletons.LeasedExpiration.Tests;
 public sealed class LeasedExpirationSingletonDictionaryTests : UnitTest
 {
     [Test]
-    public async ValueTask GetLease_reuses_value_before_idle_expiration()
+    public async ValueTask GetLease_reuses_value_before_idle_expiration(CancellationToken cancellationToken)
     {
         var calls = 0;
 
@@ -22,14 +22,14 @@ public sealed class LeasedExpirationSingletonDictionaryTests : UnitTest
 
         object firstValue;
 
-        await using (SingletonLease<string, object> first = await dict.GetLease("a"))
+        await using (SingletonLease<string, object> first = await dict.GetLease("a", cancellationToken: cancellationToken))
         {
             firstValue = first.Value;
         }
 
-        await Task.Delay(50);
+        await Task.Delay(50, cancellationToken: cancellationToken);
 
-        await using (SingletonLease<string, object> second = await dict.GetLease("a"))
+        await using (SingletonLease<string, object> second = await dict.GetLease("a", cancellationToken: cancellationToken))
         {
             second.Value.Should().BeSameAs(firstValue);
         }
@@ -40,16 +40,16 @@ public sealed class LeasedExpirationSingletonDictionaryTests : UnitTest
     }
 
     [Test]
-    public async ValueTask Expiration_waits_for_active_lease()
+    public async ValueTask Expiration_waits_for_active_lease(CancellationToken cancellationToken)
     {
         var disposed = 0;
 
         var dict = new LeasedExpirationSingletonDictionary<DisposableValue>(TimeSpan.FromMilliseconds(60),
             _ => new DisposableValue(() => Interlocked.Increment(ref disposed)));
 
-        SingletonLease<string, DisposableValue> lease = await dict.GetLease("a");
+        SingletonLease<string, DisposableValue> lease = await dict.GetLease("a", cancellationToken: cancellationToken);
 
-        await Task.Delay(180);
+        await Task.Delay(180, cancellationToken: cancellationToken);
 
         disposed.Should().Be(0);
 
